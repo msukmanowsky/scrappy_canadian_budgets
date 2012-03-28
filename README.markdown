@@ -1,16 +1,35 @@
 # Scrapy Canadian Budgets
 
 ## what is it
-[Scrappy](http://scrapy.org/) spiders, pipelines and items for scraping budget release data from the provincial and federal Canadian government websites.
+[Scrapy](http://scrapy.org/) spiders, pipelines and items for scraping budget release data from the provincial and federal Canadian government websites.
 
 Currently, it has one spider created to scrape Ontario 2011 budget data but the hope is that others can quickly contribute other spiders, pipelines and items.
 
 ## usage
-Assuming you have installed [scrappy](http://scrapy.org), you can use the Ontario 2011 Budget spider by running:
+Assuming you have installed [scrapy](http://scrapy.org), first add a `settings.py` file under `scrapy_canadian_budgets` which should look something like this:
 
-    scrapy crawl ontario_2011_budget -o ontario_2011.json -t json
+    BOT_NAME 					= 'scrapy_canadian_budgets'
+    BOT_VERSION 			= '1.0'
 
-Of course you don't have to use `ontario_2011.json` if you would like a different filename.  This output will be a collection of either `Table` or `Summary` items.
+    SPIDER_MODULES 		= ['scrapy_canadian_budgets.spiders']
+    NEWSPIDER_MODULE 	= 'scrapy_canadian_budgets.spiders'
+    USER_AGENT 				= '%s/%s' % (BOT_NAME, BOT_VERSION)
+    #ITEM_PIPELINES 	= ['scrapy_canadian_budgets.pipelines.OntarioBudgetPipeline']
+    ITEM_PIPELINES 		= ['scrapy_canadian_budgets.pipelines.MongoDBPipeline']
+
+    MONGODB_SERVER 		= "localhost"
+    MONGODB_PORT			= 123456
+    MONGODB_DB				= "playground"
+    MONGODB_USERNAME 	= "username"
+    MONGODB_PASSWORD 	= "password"
+
+Notice that I'm using the MongoDBPipeline above as opposed to the OntarioBudgetPipeline which should be used for JSON output.  This file has been removed from the project as it contains MongoDB details.  
+
+Assuming you want a JSON output (e.g. `ITEM_PIPELINES = ['scrapy_canadian_budgets.pipelines.OntarioBudgetPipeline']`), you can use the Ontario 2012 Budget spider by running:
+
+    scrapy crawl ontario_2012_budget -o ontario_2011.json -t json
+
+This output will be a collection of either `Table` or `Summary` items.
 
 `Table` items have three fields: 
 

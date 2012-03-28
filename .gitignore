@@ -1,1 +1,5 @@
 *.json
+*.xml
+*.log
+*.pyc
+scrapy_canadian_budgets/settings.py

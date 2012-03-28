@@ -13,13 +13,13 @@ Assuming you have installed [scrapy](http://scrapy.org), first add a `settings.p
 
     SPIDER_MODULES 		= ['scrapy_canadian_budgets.spiders']
     NEWSPIDER_MODULE 	= 'scrapy_canadian_budgets.spiders'
-    USER_AGENT 				= '%s/%s' % (BOT_NAME, BOT_VERSION)
+    USER_AGENT 			= '%s/%s' % (BOT_NAME, BOT_VERSION)
     #ITEM_PIPELINES 	= ['scrapy_canadian_budgets.pipelines.OntarioBudgetPipeline']
     ITEM_PIPELINES 		= ['scrapy_canadian_budgets.pipelines.MongoDBPipeline']
 
     MONGODB_SERVER 		= "localhost"
-    MONGODB_PORT			= 123456
-    MONGODB_DB				= "playground"
+    MONGODB_PORT		= 123456
+    MONGODB_DB			= "playground"
     MONGODB_USERNAME 	= "username"
     MONGODB_PASSWORD 	= "password"
 
